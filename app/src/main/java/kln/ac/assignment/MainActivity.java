@@ -30,6 +30,8 @@ public class MainActivity extends Activity implements LocationListener {
     private final long MIN_DISTANCE = 5; //minimum distance between location updates, in meters
     double longti;
     double lat;
+    View contentView;
+    View contentView2;
 
     TextView txtLat;
 
@@ -38,6 +40,10 @@ public class MainActivity extends Activity implements LocationListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        contentView = findViewById(R.id.button2);
+        contentView.setVisibility(View.GONE);
+        contentView2 = findViewById(R.id.textView);
+//        contentView2.setVisibility(View.GONE);
         ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
                 PackageManager.PERMISSION_GRANTED);
         ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
@@ -67,7 +73,7 @@ public class MainActivity extends Activity implements LocationListener {
         txtLat = (TextView) findViewById(R.id.textView);
         lat = location.getLatitude();
         longti = location.getLongitude();
-        txtLat.setText("Latitude:" + lat + ", Longitude:" + longti);
+       // txtLat.setText("Latitude:" + lat + ", Longitude:" + longti);
     }
 
     @Override
@@ -87,17 +93,26 @@ public class MainActivity extends Activity implements LocationListener {
 
     public void sendSMS(View view){
 
-        String mobileNo="0768652634";
+        String mobileNo="0716332197";
         String message="I'm Nipuna Munasinghe IM/2017/047. Please help Me. I'm in https://maps.google.com/?q="+lat+","+longti;
+
+
         try{
             if(!mobileNo.equals("") && !message.equals("")){
                 SmsManager smgr = SmsManager.getDefault();
                 smgr.sendTextMessage(mobileNo,null,message,null,null);
                 Toast.makeText(getApplicationContext(),"SMS Sent to "+mobileNo,Toast.LENGTH_LONG).show();
+                contentView.setVisibility(View.VISIBLE);
+                contentView = findViewById(R.id.button);
+                contentView.setVisibility(View.GONE);
             }
         }catch (Exception e){
             Toast.makeText(getApplicationContext(),"SMS Sending Failed "+e,Toast.LENGTH_LONG).show();
         }
+    }
+
+    public void finishApp(View view){
+        finish();
     }
 
 }
