@@ -31,7 +31,7 @@ public class MainActivity extends Activity implements LocationListener {
     double longti;
     double lat;
     View contentView;
-    View contentView2;
+    
 
     TextView txtLat;
 
@@ -42,8 +42,6 @@ public class MainActivity extends Activity implements LocationListener {
 
         contentView = findViewById(R.id.button2);
         contentView.setVisibility(View.GONE);
-        contentView2 = findViewById(R.id.textView);
-//        contentView2.setVisibility(View.GONE);
         ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
                 PackageManager.PERMISSION_GRANTED);
         ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
@@ -93,7 +91,7 @@ public class MainActivity extends Activity implements LocationListener {
 
     public void sendSMS(View view){
 
-        String mobileNo="0716332197";
+        String mobileNo="0768652634";
         String message="I'm Nipuna Munasinghe IM/2017/047. Please help Me. I'm in https://maps.google.com/?q="+lat+","+longti;
 
 
@@ -111,7 +109,7 @@ public class MainActivity extends Activity implements LocationListener {
         }
     }
 
-    public void finishApp(View view){
+    public void finishApp(){
         finish();
     }
 
