@@ -88,7 +88,7 @@ public class MainActivity extends Activity implements LocationListener {
     public void sendSMS(View view){
 
         String mobileNo="0768652634";
-        String message="Cum @ my place : https://www.google.com/maps/@"+lat+","+longti+",16z";
+        String message="I'm Nipuna Munasinghe IM/2017/047. Please help Me. I'm in https://maps.google.com/?q="+lat+","+longti;
         try{
             if(!mobileNo.equals("") && !message.equals("")){
                 SmsManager smgr = SmsManager.getDefault();
