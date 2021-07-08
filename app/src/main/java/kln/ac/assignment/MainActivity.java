@@ -18,12 +18,10 @@ import android.widget.Toast;
 
 import com.google.android.gms.maps.GoogleMap;
 
-import kln.ac.assignment.databinding.ActivityMapsBinding;
-
 public class MainActivity extends Activity implements LocationListener {
 
     private GoogleMap mMap;
-    private ActivityMapsBinding binding;
+
     private LocationListener locationListener;
     private LocationManager locationManager;
     private final long MIN_TIME = 1000; //minimum time interval between location updates, in milliseconds
@@ -31,7 +29,8 @@ public class MainActivity extends Activity implements LocationListener {
     double longti;
     double lat;
     View contentView;
-    
+    View contentView2;
+
 
     TextView txtLat;
 
@@ -41,7 +40,9 @@ public class MainActivity extends Activity implements LocationListener {
         setContentView(R.layout.activity_main);
 
         contentView = findViewById(R.id.button2);
+        contentView2 = findViewById(R.id.textView);
         contentView.setVisibility(View.GONE);
+        contentView2.setVisibility(View.GONE);
         ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
                 PackageManager.PERMISSION_GRANTED);
         ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
@@ -68,10 +69,10 @@ public class MainActivity extends Activity implements LocationListener {
 
     @Override
     public void onLocationChanged(Location location) {
-        txtLat = (TextView) findViewById(R.id.textView);
+        txtLat = (TextView) findViewById(R.id.textView); //Used to wether the app loads GPS data or not
         lat = location.getLatitude();
         longti = location.getLongitude();
-       // txtLat.setText("Latitude:" + lat + ", Longitude:" + longti);
+        txtLat.setText("Latitude:" + lat + ", Longitude:" + longti);
     }
 
     @Override
@@ -91,22 +92,25 @@ public class MainActivity extends Activity implements LocationListener {
 
     public void sendSMS(View view){
 
-        String mobileNo="0768652634";
-        String message="I'm Nipuna Munasinghe IM/2017/047. Please help Me. I'm in https://maps.google.com/?q="+lat+","+longti;
+        for (int i=1;i<=3;i++){
+            String mobileNo="0716332197";
+            String message="I'm Nipuna Munasinghe IM/2017/047. Please help Me. I'm in https://maps.google.com/?q="+lat+","+longti;
 
-
-        try{
-            if(!mobileNo.equals("") && !message.equals("")){
-                SmsManager smgr = SmsManager.getDefault();
-                smgr.sendTextMessage(mobileNo,null,message,null,null);
-                Toast.makeText(getApplicationContext(),"SMS Sent to "+mobileNo,Toast.LENGTH_LONG).show();
-                contentView.setVisibility(View.VISIBLE);
-                contentView = findViewById(R.id.button);
-                contentView.setVisibility(View.GONE);
+            try{
+                if(!mobileNo.equals("") && !message.equals("")){
+                    SmsManager smgr = SmsManager.getDefault();
+                    smgr.sendTextMessage(mobileNo,null,message,null,null);
+                    Toast.makeText(getApplicationContext(),"SMS Sent to "+mobileNo,Toast.LENGTH_LONG).show();
+                    contentView.setVisibility(View.VISIBLE);
+                    contentView = findViewById(R.id.button);
+                    contentView.setVisibility(View.GONE);
+                    Thread.sleep(1000);
+                }
+            }catch (Exception e){
+                Toast.makeText(getApplicationContext(),"SMS Sending Failed "+e,Toast.LENGTH_LONG).show();
             }
-        }catch (Exception e){
-            Toast.makeText(getApplicationContext(),"SMS Sending Failed "+e,Toast.LENGTH_LONG).show();
         }
+
     }
 
     public void finishApp(){
